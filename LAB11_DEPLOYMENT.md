@@ -6,13 +6,17 @@ Repository: https://github.com/SajanaKavishan/campuseats-task-tracker
 
 ## What has been prepared
 
-The existing React/Vite frontend and ASP.NET Core 8 API are ready for cloud configuration. The frontend production build and backend Release publish have passed locally. A labelled sample menu is available when `VITE_API_URL` is empty; configuring a backend URL switches to `GET /api/menu`. A failed live request displays an error instead of sample data.
+The frontend is live at https://campuseats-it24103911.vercel.app . It reached Vercel Ready status; public `/`, `/dish/1`, and `/menu.json` requests returned HTTP 200. `VITE_API_URL=demo` is configured in the Vercel Production environment, so the site displays an explicitly labelled sample menu. A backend URL switches requests to `GET /api/menu`; failed live requests show an error.
+
+The existing React/Vite frontend and ASP.NET Core 8 API passed local production builds. The application source is pushed to GitHub branch `chore/lab11-cloud-hosting` at commit `e1fea1553bbc966f5da95bfd5529978931d6d426`. Both GitHub Actions workflows passed. Backend/database deployment is documented, not completed.
+
+Vercel Git integration was attempted but rejected by Vercel. The initial live deployment used its authenticated CLI. Complete the repository connection in the Vercel dashboard, then merge the prepared branch before configuring production deployments from main.
 
 The supplied GitHub repository currently contains a Lab 08 task tracker. `repository/` is an isolated checkout where the full application update is prepared. The project ZIP includes the application, existing tracker, workflow, and these instructions. Do not upload the entire parent workspace: it contains other labs.
 
 ## 1. GitHub
 
-Upload the contents of `IT24103911_Lab11_Project.zip` to the supplied repository, preserving both application folders. Commit to a branch and merge after its build checks pass. Never upload `.env`, `appsettings.Local.json`, `node_modules`, `bin`, `obj`, or credentials.
+The application has already been pushed to `chore/lab11-cloud-hosting`. Review this branch and merge it into main when ready; its frontend and API CI checks passed. The ZIP is a sanitized copy for submission or backup. Never upload `.env`, `appsettings.Local.json`, `node_modules`, `bin`, `obj`, or credentials.
 
 ## 2. Vercel frontend — complete this first
 
