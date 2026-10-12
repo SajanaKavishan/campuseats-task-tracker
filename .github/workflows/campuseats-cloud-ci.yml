@@ -1,0 +1,38 @@
+name: CampusEats cloud builds
+
+on:
+  push:
+    branches: [main, 'feature/**', 'chore/**']
+    paths: ['campuseats-dashboard/**', 'CampusEats.Api/**', '.github/workflows/campuseats-cloud-ci.yml']
+  pull_request:
+    branches: [main]
+    paths: ['campuseats-dashboard/**', 'CampusEats.Api/**', '.github/workflows/campuseats-cloud-ci.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: campuseats-dashboard
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: campuseats-dashboard/package-lock.json
+      - run: npm ci
+      - run: npm run build
+
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet restore CampusEats.Api/CampusEats.Api.csproj
+      - run: dotnet publish CampusEats.Api/CampusEats.Api.csproj --no-restore -c Release -o api-publish
